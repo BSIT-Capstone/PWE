@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+        @{
+            if (!Request.IsAuthenticated)
+            {
+
+            <div class="jumbotron">
+
+                <h1>PWE <img src="~/Content/Images/NazcaLogo.jpg" style="float:right;" alt="Nazca Solutions" height="150" width="150" /></h1>
+
+                <p class="lead">
+                  PIM reporting services.
+                </p>
+                <p>Click here to @Html.ActionLink("Log in.", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</p>
+            </div>
+            }
+            else
+            {
+                <div align="center"><h1>PWE: <small>PIM Web Extracts</small></h1><br />
+                    <table>
+                        <tr>
+                            <td>
+                               
+                                <p><a href="~/Reports/Reports" class="btn btn-primary btn-lg active" role="button">Reports</a> Choose a report and extract data from PIM.</p>
+                            </td>
+                        </tr> 
+                        <tr>    
+                        <td>
+                            
+                            <p> <p><a href="~/Reports/LookupTables" class="btn btn-primary btn-lg active" role="button">Lookup Tables</a> Display Lookup Tables and IDs.</p>
+                        </td>
+                         </tr>
+                    </table>    
+            </div>
+                
+
+
+
+            }
+        }
+
+
+

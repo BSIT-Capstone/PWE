@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "PWE Reports";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PWE Reports</title>
+</head>
+<body>
+
+
+    <div align="center">
+        <h1>PWE: <small>Reports Section</small></h1><br />
+    </div>
+    <form>
+        <table>
+            @{ 
+                int report_count = 1;
+            }
+            @foreach (var name in this.ViewData.Model)
+            {
+                <tr>
+                    <td><input type="checkbox" name="report_@report_count" /></td><td> @name.Name</td>
+                </tr>
+                report_count++;
+            }
+
+        </table>
+    </form>
+</body>
+</html>

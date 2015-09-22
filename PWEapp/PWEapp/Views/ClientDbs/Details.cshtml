@@ -1,0 +1,42 @@
+﻿@model PWEapp.Models.ClientDb
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ClientDb</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LocaleID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LocaleID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PriceGroupID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriceGroupID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WebChg)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WebChg)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
