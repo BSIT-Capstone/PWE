@@ -20,12 +20,8 @@ namespace PWE_reporting.Controllers
             ReportingService2005 rr = new ReportingService2005();
            
             rr.Credentials = new System.Net.NetworkCredential("user", "password");
-
             //rr.Credentials = System.Net.CredentialCache.DefaultCredentials;
             rr.Url = "http://10.110.190.71/ReportServer/ReportService2005.asmx";
-            
-           
-            
             CatalogItem[] items = null;
 
             try
@@ -87,9 +83,9 @@ namespace PWE_reporting.Controllers
             return View();
         }
 
-        public ActionResult DownloadReport(string ReportName)
+        public ActionResult DownloadReport(string ReportName, string ReportParam)
         {
-            
+
             //ViewBag.reportName = reportName;
             ReportExecutionService rs = new ReportExecutionService();
 
@@ -132,19 +128,17 @@ namespace PWE_reporting.Controllers
                 throw e;
             }
 
-           return File(result, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "myreport.xlsx");
+           return File(result, "application/vnd.ms-excel");
+        /*
 
-        }
-        public ActionResult ViewReport(string ReportName)
-        {
-            //return File(result, mimeType);
             ViewBag.ReportName = ReportName;
+            ViewBag.ReportParam = ReportParam;
+
             return View();
+            */
         }
-
-      
-
-
        
+
+
+        }
     }
-}

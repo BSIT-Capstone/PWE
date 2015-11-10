@@ -1,45 +1,46 @@
 ﻿@{
     ViewBag.Title = "Reports";
 
-    int reportWithParam = 0;
+    string reportParamSelect = "";
     string reportParam = "";
-    string reportTs = "";
-    int reportL = 0;
-    string[] reportOpt = null;
-    int i = 0;
 }
 <h2>Reports</h2>
 <div style="max-width:60%;" class="table-responsive">
-   <form>
+  @using (Html.BeginForm("DownloadReport", "Reports", FormMethod.Post, new { id = "reportForm" }))
+  {
+   <!-- <form id="reportForm">-->
    <p>Select a report to download</p>
 
    <select name="report_selecter" id="report_selecter">
-     <option>--Select Report--</option>
+     <option value="">--Select Report--</option>
        @foreach (var report in Model)
        {
-         <option>@report.ReportName</option>
-         reportL = 0;
+         <option value="@report.ReportName">@report.ReportName</option>
        }
   </select>
-            <p>Select a Parameter</p>
-               @foreach (var report in Model)
-               {
-                   foreach (var reportPara in report.ReportParameters)
-                   {
-                    <select>
-                        <option>--Select Parameter--</option>
-                        @foreach (var para in report.DataParameters)
-                        {
-                        reportParam = @para.Value;
-                        <option>@reportParam</option>
-                        }
-                    </select>
-                    <br>
-                   }
-               }
-           </form>   
-            <br /><br />
-            <input type="button" class="btn btn-primary btn-md active" value="Download Report" />
+              foreach (var report in Model)
+              {
+                  reportParamSelect = report.ReportName;
+
+                  foreach (var reportPara in report.ReportParameters)
+                  {
+                    <div class="reportParameters" name="@reportParamSelect" style="display:none">
+                        <br /><p>Select a Parameter</p>
+                        <select name="@reportParamSelect" id="@reportParamSelect">
+                            <option value="">--Select Parameter--</option>
+                            @foreach (var para in report.DataParameters)
+                            {
+                                reportParam = @para.Value;
+                                <option value="@reportParam">@reportParam</option>
+                            }
+                        </select>
+                    </div>
+                  }
+              }
+       <br /><br />
+       <input type="submit" class="btn btn-primary btn-md active" value="Download Report" />
+  <!--</form>-->
+  }
     </div>
 
 

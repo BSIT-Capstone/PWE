@@ -85,3 +85,4 @@ C:\Users\grg3\Documents\GitHub\PWE\PWE_reporting\PWE_reporting\bin\System.Web.Ht
 C:\Users\grg3\Documents\GitHub\PWE\PWE_reporting\PWE_reporting\obj\Debug\PWE_reporting.dll
 C:\Users\grg3\Documents\GitHub\PWE\PWE_reporting\PWE_reporting\obj\Debug\PWE_reporting.pdb
 C:\Users\grg3\Documents\GitHub\PWE\PWE_reporting\PWE_reporting\obj\Debug\PWE_reporting.csprojResolveAssemblyReference.cache
+C:\Users\grg3\Documents\GitHub\PWE\PWE_reporting\PWE_reporting\bin\Microsoft.Web.Infrastructure.dll
