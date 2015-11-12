@@ -15,43 +15,48 @@
     $('#reportForm').submit(function (e) {
         e.preventDefault();
         var formData = $(this).serializeArray();
-        var formSerial = $(this).serialize();
+        //var formSerial = $(this).serialize();
         var reportName = formData[0].value;
         var reportP = "";
         var reportN = "";
+        //check if report value is selected
         if (reportName == "") {
             alert("Need to select a report");
             return false;
         }
+        //start building url string
         var urlString = "/Reports/DownloadReport?";
+        //add report to string
+        urlString += "reportname=" + reportName;
 
         len = formData.length,
         dataObj = {};
-        for (i = 0; i < len; i++) {
-            if (reportName == formData[i].name) {
+        paramObj = {};
+        var myReport = "";
+        //add parameter values to string
+        for (i = 1; i < len; i++) {
+            reportP = formData[i].name;
+            reportP = reportP.toString().toLocaleLowerCase();
+            //check if hidden input value is part of report 
+            if (reportName == formData[i].value) {
+                urlString += "&" + reportP + "=";
+                myReport = formData[i].value;
+            }
+            //check if parameter select is part of report
+            if (myReport == formData[i].name) {
+                //check to if parameter value is selected
                 if (formData[i].value == "") {
                     alert("Need to select a parameter");
                     return false;
+                } else {
+                    urlString += formData[i].value;
                 }
-            }
-            if (formData[i].value != "") {
-                dataObj[formData[i].name] = formData[i].value;
+               
             }
         }
 
-        var reportN = dataObj['report_selecter'];
-        if (reportN != null) {
-            urlString += "ReportName=" + reportN;
-        }
-
-        var reportP = dataObj[reportName];
-
-        if (reportP == null) {
-              reportP = "";
-        } else {
-            urlString += "&ReportParam="+reportP
-        }
-       // alert(urlString);
+         //alert(urlString);
+        
         window.location.href = urlString;
     });
 });

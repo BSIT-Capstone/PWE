@@ -20,6 +20,7 @@ namespace PWE_reporting.Models
     public class Parameter
     {
         public string ParameterName { get; set; }
+        public string Prompt { get; set; }
         public string Value { get; set; }
     }
 

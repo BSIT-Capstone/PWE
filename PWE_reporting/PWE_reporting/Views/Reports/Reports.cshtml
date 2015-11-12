@@ -24,9 +24,10 @@
 
                   foreach (var reportPara in report.ReportParameters)
                   {
+                    <input class="parameters" type="hidden" name="@reportPara.ParameterName" value="@reportParamSelect" id="@reportPara.ParameterName" />
                     <div class="reportParameters" name="@reportParamSelect" style="display:none">
-                        <br /><p>Select a Parameter</p>
-                        <select name="@reportParamSelect" id="@reportParamSelect">
+                        <br /><p>@reportPara.Prompt</p>
+                        <select name="@reportParamSelect" id="@reportPara.ParameterName">
                             <option value="">--Select Parameter--</option>
                             @foreach (var para in report.DataParameters)
                             {
