@@ -63,7 +63,7 @@ namespace PWE_reporting.Controllers
                     {
                         foreach (ReportWebReference.ReportParameter rp in parameters)
                         {
-                            report.ReportParameters.Add(new Parameter() { ParameterName = rp.Name });
+                            report.ReportParameters.Add(new Parameter() { ParameterName = rp.Name, Prompt = rp.Prompt });
                             foreach (var validValue in rp.ValidValues)
                             {
                                 report.DataParameters.Add(new Parameter() { Value = validValue.Value });
@@ -81,20 +81,18 @@ namespace PWE_reporting.Controllers
             return View(reports);
         }
 
-        public ActionResult DownloadReport(string reportname)
+        public ActionResult DownloadReport(string reportname, string pricegroupid)
         {
 
-            //ViewBag.reportName = reportName;
             ReportExecutionService rs = new ReportExecutionService();
-
             rs.Credentials = new System.Net.NetworkCredential("user", "password");
-
             //rs.Credentials = System.Net.CredentialCache.DefaultCredentials;
             rs.Url = "http://10.110.190.71/ReportServer/ReportExecution2005.asmx";
 
             string encoding = null;
             string mimeType = null;
             string[] streamIDs = null;
+            string devInfo = "<DeviceInfo><Toolbar>False</Toolbar></DeviceInfo>";
 
 
             string reportPath = null;
@@ -108,16 +106,32 @@ namespace PWE_reporting.Controllers
             ReportWebService.Warning[] warnings = null;
             ExecutionInfo execInfo = new ExecutionInfo();
             ExecutionHeader execHeader = new ExecutionHeader();
+
+            
+          
             Response.AddHeader("Content-Disposition", "inline; filename=" + reportname + ".xlsx");
             rs.ExecutionHeaderValue = execHeader;
 
+            ReportWebService.ParameterValue priceGroupID = new ReportWebService.ParameterValue();
 
             execInfo = rs.LoadReport(reportPath, historyID);
-            // rs.SetExecutionParameters(parameters, "en-us");
 
+            if (pricegroupid != null) //report has a pricegroupid parameter
+            {
+                
+                priceGroupID.Name = "PriceGroupID";
+                priceGroupID.Value = "A";
+
+
+            }
+            string trustedHeader = null;
+            ReportWebService.ParameterValue[] parameters = new ReportWebService.ParameterValue[1] { priceGroupID };
+            
+            rs.SetExecutionParameters(parameters, "en-us");
+            rs.Timeout = 200000;
             try
             {
-                result = rs.Render(format, null, out extension, out mimeType, out encoding, out warnings, out streamIDs);
+                result = rs.Render(format, devInfo, out extension, out mimeType, out encoding, out warnings, out streamIDs);
 
                 execInfo = rs.GetExecutionInfo();
             }
@@ -126,7 +140,7 @@ namespace PWE_reporting.Controllers
                 throw e;
             }
 
-            return File(result, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "myreport.xlsx");
+            return File(result, "application/vnd.ms-excel");
 
             /*
                        ViewBag.ReportName = reportname;
