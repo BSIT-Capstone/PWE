@@ -21,7 +21,8 @@
         var reportN = "";
         //check if report value is selected
         if (reportName == "") {
-            alert("Need to select a report");
+            $('.reporterrormsg ').show();
+            //alert("Need to select a report");
             return false;
         }
         //start building url string
@@ -46,7 +47,8 @@
             if (myReport == formData[i].name) {
                 //check to if parameter value is selected
                 if (formData[i].value == "") {
-                    alert("Need to select a parameter");
+                    $('.paramerrormsg').show();
+                    //alert("Need to select a parameter");
                     return false;
                 } else {
                     urlString += formData[i].value;

@@ -10,11 +10,12 @@
   {
    <!-- <form id="reportForm">-->
    <p>Select a report to download</p>
-
+   <p class="reporterrormsg" style="color:red; display:none;">Please select report</p>
    <select name="report_selecter" id="report_selecter">
      <option value="">--Select Report--</option>
        @foreach (var report in Model)
        {
+
          <option value="@report.ReportName">@report.ReportName</option>
        }
   </select>
@@ -27,6 +28,7 @@
                     <input class="parameters" type="hidden" name="@reportPara.ParameterName" value="@reportParamSelect" id="@reportPara.ParameterName" />
                     <div class="reportParameters" name="@reportParamSelect" style="display:none">
                         <br /><p>@reportPara.Prompt</p>
+                        <p class="paramerrormsg" style="color:red; display:none;">Please select parameter</p>
                         <select name="@reportParamSelect" id="@reportPara.ParameterName">
                             <option value="">--Select Parameter--</option>
                             @foreach (var para in report.DataParameters)

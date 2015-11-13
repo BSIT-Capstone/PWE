@@ -20,7 +20,6 @@ namespace PWE_reporting.Controllers
             ReportingService2005 rr = new ReportingService2005();
 
             rr.Credentials = new System.Net.NetworkCredential("user", "password");
-
             //rr.Credentials = System.Net.CredentialCache.DefaultCredentials;
             rr.Url = "http://10.110.190.71/ReportServer/ReportService2005.asmx";
 
@@ -78,6 +77,8 @@ namespace PWE_reporting.Controllers
                     throw e;
                 }
             }
+
+            
             return View(reports);
         }
 
@@ -102,33 +103,24 @@ namespace PWE_reporting.Controllers
             string format = "EXCEL";
             string extension = null;
 
-
             ReportWebService.Warning[] warnings = null;
             ExecutionInfo execInfo = new ExecutionInfo();
             ExecutionHeader execHeader = new ExecutionHeader();
 
-            
-          
             Response.AddHeader("Content-Disposition", "inline; filename=" + reportname + ".xlsx");
             rs.ExecutionHeaderValue = execHeader;
 
             ReportWebService.ParameterValue priceGroupID = new ReportWebService.ParameterValue();
-
             execInfo = rs.LoadReport(reportPath, historyID);
 
-            if (pricegroupid != null) //report has a pricegroupid parameter
-            {
-                
-                priceGroupID.Name = "PriceGroupID";
-                priceGroupID.Value = "A";
-
-
-            }
-            string trustedHeader = null;
             ReportWebService.ParameterValue[] parameters = new ReportWebService.ParameterValue[1] { priceGroupID };
-            
-            rs.SetExecutionParameters(parameters, "en-us");
-            rs.Timeout = 200000;
+            if (pricegroupid != null) //report has a pricegroupid parameter
+            {   
+                priceGroupID.Name = "PriceGroupID";
+                priceGroupID.Value = pricegroupid;
+                rs.SetExecutionParameters(parameters, "en-us");
+            }
+
             try
             {
                 result = rs.Render(format, devInfo, out extension, out mimeType, out encoding, out warnings, out streamIDs);
