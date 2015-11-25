@@ -1,0 +1,2 @@
+reportservice=http://10.110.190.71/ReportServer/ReportService2005.asmx
+reportexecution=http://10.110.190.71/ReportServer/ReportExecution2005.asmx

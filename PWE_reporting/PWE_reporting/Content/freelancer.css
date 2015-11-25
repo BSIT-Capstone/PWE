@@ -45,10 +45,30 @@ hr.star-primary {
     border-top: solid 5px;
     text-align: center;
 }
-
+hr.under-line,
+hr.under-line {
+    margin: 25px auto 30px;
+    padding: 0;
+    max-width: 250px;
+    border: 0;
+    border-top: solid 5px;
+    text-align: center;
+}
+hr.under-line:after,
+hr.under-line:after {
+    display: inline-block;
+    position: relative;
+    top: -.8em;
+    padding: 0 .25em;
+    font-family: FontAwesome;
+    font-size: 2em;
+}
+hr.under-line {
+    border-color: #fff;
+}
 hr.star-light:after,
 hr.star-primary:after {
-    content: "\f005";
+    content: "\f13a"; 
     display: inline-block;
     position: relative;
     top: -.8em;
@@ -179,7 +199,7 @@ section h2 {
     font-size: 3em;
 }
 
-section.success {
+section.orangepage {
     color: #fff;
     background: #FC831A;
 }
@@ -196,15 +216,30 @@ div.reportpage {
     border: 1px ridge black;
 
 }
+.report-btn{
+    background-color: #1a242f;
+    border-color: #161f29;
+    color: #ffffff;
+}
+.underline-hd{
+    border-bottom: 2px solid black;
+    font-weight:normal;
+    margin-bottom:5px;
+    width: 140px;
+}
+.report-btn:hover{
+
+     background: #2c3e50;
+  
+}
 
 
 
-
-section.success a,
-section.success a:hover,
-section.success a:focus,
-section.success a:active,
-section.success a.active {
+section.report a,
+section.report a:hover,
+section.report a:focus,
+section.report a:active,
+section.report a.active {
     outline: 0;
     color: #2c3e50;
 }

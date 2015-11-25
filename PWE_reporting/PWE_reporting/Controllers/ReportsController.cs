@@ -18,16 +18,28 @@ namespace PWE_reporting.Controllers
         // GET: Reports
         public ActionResult Reports()
         {
-            string path = Server.MapPath("ReadMe/userconfig.txt");
+            string path = Server.MapPath("ReportReferences/ReportReferences.txt");
             string[] filetext = System.IO.File.ReadAllLines(path);
-                                  //username    password    reportservice   reportexecution
-            Cred mycred = new Cred(filetext[0], filetext[1], filetext[2], filetext[3]);
+            string reportservice, reportexecution = "";
+            reportservice = filetext[0];
+            reportexecution = filetext[1];
+            int index = 0;
+            index = reportservice.IndexOf("=");
+            if(index > 0)
+            {
+                reportservice = reportservice.Substring(index+1);
+            }
+            index = reportexecution.IndexOf("=");
+            if (index > 0)
+            {
+                reportexecution = reportexecution.Substring(index+1);
+            }
+                                                         //reportservice   reportexecution
+            ReportReferences refer = new ReportReferences(reportservice, reportexecution);
             ReportingService2005 rr = new ReportingService2005();
-            string username = mycred.userName;
-            string pass = mycred.passWord;
-            rr.Credentials = new System.Net.NetworkCredential(username, pass);
+            //rr.Credentials = new System.Net.NetworkCredential("username", "password");
             rr.Credentials = System.Net.CredentialCache.DefaultCredentials;
-            rr.Url = mycred.ReportService;
+            rr.Url = refer._reportservice;
 
             CatalogItem[] items = null;
 
@@ -91,16 +103,28 @@ namespace PWE_reporting.Controllers
 
         public ActionResult DownloadReport(string reportname, string pricegroupid, string productid)
         {
-            string path = Server.MapPath("../ReadMe/userconfig.txt");
+            string path = Server.MapPath("../ReportReferences/ReportReferences.txt");
             string[] filetext = System.IO.File.ReadAllLines(path);
-            //username    password    reportservice   reportexecution
-            Cred mycred = new Cred(filetext[0], filetext[1], filetext[2], filetext[3]);
+            string reportservice, reportexecution = "";
+            reportservice = filetext[0];
+            reportexecution = filetext[1];
+            int index = 0;
+            index = reportservice.IndexOf("=");
+            if (index > 0)
+            {
+                reportservice = reportservice.Substring(index + 1);
+            }
+            index = reportexecution.IndexOf("=");
+            if (index > 0)
+            {
+                reportexecution = reportexecution.Substring(index + 1);
+            }
+            //reportservice   reportexecution
+            ReportReferences refer = new ReportReferences(reportservice, reportexecution);
             ReportExecutionService rs = new ReportExecutionService();
-            string username = mycred.userName;
-            string pass = mycred.passWord;
-            rs.Credentials = new System.Net.NetworkCredential(username, pass);
-            //rs.Credentials = System.Net.CredentialCache.DefaultCredentials;
-            rs.Url = mycred.ReportExec;
+            //rs.Credentials = new System.Net.NetworkCredential("username", "password");
+            rs.Credentials = System.Net.CredentialCache.DefaultCredentials;
+            rs.Url = refer._reportexec;
 
             string encoding = null;
             string mimeType = null;

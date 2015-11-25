@@ -165,7 +165,7 @@
     <Content Include="img\ku_engineering.jpg" />
     <Content Include="img\peruvian_white_logo.png" />
     <Content Include="img\profile.jpg" />
-    <Content Include="ReadMe\userconfig.txt" />
+    <Content Include="ReportReferences\ReportReferences.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="font-awesome\fonts\fontawesome-webfont.eot" />
@@ -230,7 +230,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Cred.cs" />
+    <Compile Include="Models\ReportReferences.cs" />
     <Compile Include="Models\Report.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -437,7 +437,7 @@
           <IISUrl>http://localhost:59698/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>http://10.110.190.71:4020/PWE_reporting</CustomServerUrl>
+          <CustomServerUrl>http://10.110.190.71/PWE_reporting</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

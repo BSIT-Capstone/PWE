@@ -1,4 +1,0 @@
-ServiceAccount
-
-http://10.110.190.71/ReportServer/ReportService2005.asmx
-http://10.110.190.71/ReportServer/ReportExecution2005.asmx
