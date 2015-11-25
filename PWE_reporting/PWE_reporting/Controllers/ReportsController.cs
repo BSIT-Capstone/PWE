@@ -7,23 +7,27 @@ using PWE_reporting.Models;
 using PWE_reporting.ReportWebService;
 using PWE_reporting.ReportWebReference;
 using System.Web.Services.Protocols;
+using System.Reflection;
+using System.IO;
 
 namespace PWE_reporting.Controllers
 {
+
     public class ReportsController : Controller
     {
-        
-
         // GET: Reports
         public ActionResult Reports()
         {
+            string path = Server.MapPath("ReadMe/userconfig.txt");
+            string[] filetext = System.IO.File.ReadAllLines(path);
+                                  //username    password    reportservice   reportexecution
+            Cred mycred = new Cred(filetext[0], filetext[1], filetext[2], filetext[3]);
             ReportingService2005 rr = new ReportingService2005();
-
-            rr.Credentials = new System.Net.NetworkCredential("user", "password");
-            //rr.Credentials = System.Net.CredentialCache.DefaultCredentials;
-            rr.Url = "http://10.110.190.71/ReportServer/ReportService2005.asmx";
-
-
+            string username = mycred.userName;
+            string pass = mycred.passWord;
+            rr.Credentials = new System.Net.NetworkCredential(username, pass);
+            rr.Credentials = System.Net.CredentialCache.DefaultCredentials;
+            rr.Url = mycred.ReportService;
 
             CatalogItem[] items = null;
 
@@ -40,7 +44,7 @@ namespace PWE_reporting.Controllers
 
             foreach (CatalogItem value in items)
             {
-                reports.Add(new Report() { ReportName = value.Name });
+                reports.Add(new Report() { ReportName = value.Name, ReportDescription = value.Description });
             }
 
             ReportExecutionService rs = new ReportExecutionService();
@@ -63,11 +67,14 @@ namespace PWE_reporting.Controllers
                         foreach (ReportWebReference.ReportParameter rp in parameters)
                         {
                             report.ReportParameters.Add(new Parameter() { ParameterName = rp.Name, Prompt = rp.Prompt });
-                            foreach (var validValue in rp.ValidValues)
+
+                            if (rp.ValidValues != null)
                             {
-                                report.DataParameters.Add(new Parameter() { Value = validValue.Value });
+                                foreach (var validValue in rp.ValidValues)
+                                {
+                                    report.DataParameters.Add(new Parameter() { Value = validValue.Value });
+                                }
                             }
-                            //report.ReportParameters.Add(new Parameter() { ParameterName = rp.Name});
                         }
 
                     }
@@ -82,13 +89,18 @@ namespace PWE_reporting.Controllers
             return View(reports);
         }
 
-        public ActionResult DownloadReport(string reportname, string pricegroupid)
+        public ActionResult DownloadReport(string reportname, string pricegroupid, string productid)
         {
-
+            string path = Server.MapPath("../ReadMe/userconfig.txt");
+            string[] filetext = System.IO.File.ReadAllLines(path);
+            //username    password    reportservice   reportexecution
+            Cred mycred = new Cred(filetext[0], filetext[1], filetext[2], filetext[3]);
             ReportExecutionService rs = new ReportExecutionService();
-            rs.Credentials = new System.Net.NetworkCredential("user", "password");
+            string username = mycred.userName;
+            string pass = mycred.passWord;
+            rs.Credentials = new System.Net.NetworkCredential(username, pass);
             //rs.Credentials = System.Net.CredentialCache.DefaultCredentials;
-            rs.Url = "http://10.110.190.71/ReportServer/ReportExecution2005.asmx";
+            rs.Url = mycred.ReportExec;
 
             string encoding = null;
             string mimeType = null;
@@ -107,7 +119,7 @@ namespace PWE_reporting.Controllers
             ExecutionInfo execInfo = new ExecutionInfo();
             ExecutionHeader execHeader = new ExecutionHeader();
 
-            Response.AddHeader("Content-Disposition", "inline; filename=" + reportname + ".xlsx");
+            Response.AddHeader("Content-Disposition", "inline; filename=" + reportname + ".xls");
             rs.ExecutionHeaderValue = execHeader;
 
             ReportWebService.ParameterValue priceGroupID = new ReportWebService.ParameterValue();
@@ -118,6 +130,12 @@ namespace PWE_reporting.Controllers
             {   
                 priceGroupID.Name = "PriceGroupID";
                 priceGroupID.Value = pricegroupid;
+                rs.SetExecutionParameters(parameters, "en-us");
+            }
+            if (productid != null) //report has a pricegroupid parameter
+            {
+                priceGroupID.Name = "ProductID";
+                priceGroupID.Value = productid;
                 rs.SetExecutionParameters(parameters, "en-us");
             }
 

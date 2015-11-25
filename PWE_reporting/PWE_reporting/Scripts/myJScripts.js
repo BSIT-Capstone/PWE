@@ -1,7 +1,8 @@
 ﻿jQuery(document).ready(function(){
     $('#report_selecter').change(function () {
         var report_name_selected = $('#report_selecter').val();
-        
+        $('.paramerrormsg').hide();
+        $('.productiderrormsg').hide();
         $(".reportParameters").each(function (i) {
             var report_name_div = $(this).attr('name');
             if (report_name_selected == report_name_div) {
@@ -13,9 +14,9 @@
     });
 
     $('#reportForm').submit(function (e) {
+        //ProductID
         e.preventDefault();
         var formData = $(this).serializeArray();
-        //var formSerial = $(this).serialize();
         var reportName = formData[0].value;
         var reportP = "";
         var reportN = "";
@@ -30,9 +31,7 @@
         //add report to string
         urlString += "reportname=" + reportName;
 
-        len = formData.length,
-        dataObj = {};
-        paramObj = {};
+        len = formData.length;
         var myReport = "";
         //add parameter values to string
         for (i = 1; i < len; i++) {
@@ -48,17 +47,25 @@
                 //check to if parameter value is selected
                 if (formData[i].value == "") {
                     $('.paramerrormsg').show();
+                    $('.productiderrormsg').show();
                     //alert("Need to select a parameter");
                     return false;
-                } else {
-                    urlString += formData[i].value;
                 }
-               
+                if (myReport == "Report_12") {
+                    if (!$.isNumeric(formData[i].value)) {
+                        $('.productiderrormsg').show();
+                        return false;
+                    }
+                    if (formData[i].value.length != 6) {
+                        $('.productiderrormsg').show();
+                        return false;
+                    }
+                } 
+                urlString += formData[i].value;
             }
         }
 
-         //alert(urlString);
-        
-        window.location.href = urlString;
+       // alert(urlString);   
+       window.location.href = urlString;
     });
 });

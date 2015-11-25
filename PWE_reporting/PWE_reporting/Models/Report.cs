@@ -13,6 +13,7 @@ namespace PWE_reporting.Models
             this.DataParameters = new List<Parameter>();
         }
         public string ReportName { get; set; }
+        public string ReportDescription { get; set; }
         public List<Parameter> ReportParameters { get; set; }
         public List<Parameter> DataParameters { get; set; }
     }
