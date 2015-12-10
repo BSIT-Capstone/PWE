@@ -1,5 +1,6 @@
-﻿jQuery(document).ready(function(){
-    $('#report_selecter').change(function () {
+﻿//Handles Reports View for report download form
+jQuery(document).ready(function () { 
+    $('#report_selecter').change(function () { //depending on the value selected display or hide parameter field from form
         var report_name_selected = $('#report_selecter').val();
         $('.paramerrormsg').hide();
         $('.productiderrormsg').hide();
@@ -12,7 +13,7 @@
             }
         });
     });
-
+    //validate and submit form for report download
     $('#reportForm').submit(function (e) {
         //ProductID
         e.preventDefault();
@@ -27,7 +28,7 @@
             return false;
         }
         //start building url string
-        var urlString = "/Reports/DownloadReport?";
+        var urlString = "/PWE_reporting/Reports/DownloadReport?";
         //add report to string
         urlString += "reportname=" + reportName;
 
@@ -48,24 +49,11 @@
                 if (formData[i].value == "") {
                     $('.paramerrormsg').show();
                     $('.productiderrormsg').show();
-                    //alert("Need to select a parameter");
                     return false;
                 }
-                if (myReport == "Report_12") {
-                    if (!$.isNumeric(formData[i].value)) {
-                        $('.productiderrormsg').show();
-                        return false;
-                    }
-                    if (formData[i].value.length != 6) {
-                        $('.productiderrormsg').show();
-                        return false;
-                    }
-                } 
                 urlString += formData[i].value;
             }
         }
-
-       // alert(urlString);   
        window.location.href = urlString;
     });
 });

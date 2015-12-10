@@ -16,7 +16,7 @@
     <RootNamespace>PWE_reporting</RootNamespace>
     <AssemblyName>PWE_reporting</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -165,7 +165,6 @@
     <Content Include="img\ku_engineering.jpg" />
     <Content Include="img\peruvian_white_logo.png" />
     <Content Include="img\profile.jpg" />
-    <Content Include="ReportReferences\ReportReferences.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="font-awesome\fonts\fontawesome-webfont.eot" />
@@ -230,7 +229,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ReportReferences.cs" />
     <Compile Include="Models\Report.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -261,7 +259,6 @@
     <Content Include="Views\Home\Help.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Reports\Reports.cshtml" />
-    <Content Include="Views\Reports\DownloadReport.cshtml" />
     <Content Include="Web References\ReportWebService\DocumentMapNode.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </Content>
@@ -434,10 +431,10 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>59698</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:59698/</IISUrl>
+          <IISUrl>http://localhost/PWE_reporting</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>http://10.110.190.71/PWE_reporting</CustomServerUrl>
+          <CustomServerUrl>http://10.110.190.71:4020/PWE_reporting</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

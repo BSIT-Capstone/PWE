@@ -68,7 +68,7 @@ hr.under-line {
 }
 hr.star-light:after,
 hr.star-primary:after {
-    content: "\f13a"; 
+    /*content: "\f13a"; */
     display: inline-block;
     position: relative;
     top: -.8em;
