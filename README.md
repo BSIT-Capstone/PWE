@@ -15,7 +15,7 @@ PWE Reporting presents reports for users to select based on report name and desc
 PWE Reporting ensures a user has permissions to access reports through Windows Authentication and lends ability for reports to be available through any computer with domain privileges.
 
 
-Purpose
+<h3>Purpose</h3>
 
 PWE Reporting is an application solution for downloading reports from a reporting server. The application serves as part of a business process for employees to edit and make changes to content stored at their data warehouse.
 
