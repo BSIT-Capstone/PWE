@@ -17,7 +17,7 @@ Instructions: Two main objectives modify Web.config and Add Application to domai
 
 	-Open the Web.config file in notepad
 
-	-Look for the appSettings tag: <appSettings><appSettings>
+	-Look for the appSettings tag: <appSettings></appSettings>
 	
 	-Between the appSettings tag modify the value attributes for key="ReportService" and key="ReportExecution and key="ReportFolder"
 	 *Note you do not have to change the value for ReportFolder if you keep the same naming convention for the folder.
