@@ -13,8 +13,6 @@
                     <hr class="star-light">
                     @using (Html.BeginForm("DownloadReport", "Reports", FormMethod.Post, new { id = "reportForm" }))
             {
-   <!-- <form id="reportForm">-->
-
                         <p>Select a report to download</p>
                         <p class="reporterrormsg" style="color:red; display:none;">Please select report</p>
                         <select style="color:black;" name="report_selecter" id="report_selecter">
@@ -48,8 +46,7 @@
                                     }
                                     else if (reportPara.ParameterName == "ProductID")
                                     {
-                                        <p class="productiderrormsg" style="color:red; display:none;">Please select Prodcut ID</p>
-                                        <!--<input style="color:black;" type="text" name="@reportParamSelect" id="@reportPara.ParameterName" />-->
+                                        <p class="productiderrormsg" style="color:red; display:none;">Please select Prodcut ID</p>                         
                                         <select style="color:black;" name="@reportParamSelect" id="@reportPara.ParameterName">
                                             <option style="color:black;" value="" selected="selected">Select Prodoct ID</option>
                                             @foreach (var para in report.DataParameters)
@@ -65,7 +62,6 @@
                         }
                         <br /><br />
                         <input type="submit" class="btn btn-primary btn-md active" value="Download Report" />
-  <!--</form>-->
                     }
                     <div class="col-lg-8 col-lg-offset-2 text-center">
 

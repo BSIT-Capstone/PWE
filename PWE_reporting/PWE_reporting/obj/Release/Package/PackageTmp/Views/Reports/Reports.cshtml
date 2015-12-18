@@ -1,0 +1,81 @@
+﻿@{
+    ViewBag.Title = "Reports";
+
+    string reportParamSelect = "";
+    string reportParam = "";
+}
+<section class="report">
+    <div class="container">
+        <div>
+            <div class="row">
+                <div class="col-lg-12 text-center reportpage jumbotron">
+                    <h2>Reports</h2>
+                    <hr class="star-light">
+                    @using (Html.BeginForm("DownloadReport", "Reports", FormMethod.Post, new { id = "reportForm" }))
+            {
+   <!-- <form id="reportForm">-->
+
+                        <p>Select a report to download</p>
+                        <p class="reporterrormsg" style="color:red; display:none;">Please select report</p>
+                        <select style="color:black;" name="report_selecter" id="report_selecter">
+                            <option style="color:black;" selected="selected" value="">Select Report</option>
+                            @foreach (var report in Model)
+                            {
+
+                                <option style="color:black;" value="@report.ReportName">@report.ReportName: @report.ReportDescription</option>
+                            }
+                        </select>
+                        foreach (var report in Model)
+                        {
+                            reportParamSelect = report.ReportName;
+
+                            foreach (var reportPara in report.ReportParameters)
+                            {
+                                <input class="parameters" type="hidden" name="@reportPara.ParameterName" value="@reportParamSelect" id="@reportPara.ParameterName" />
+                                <div class="reportParameters" name="@reportParamSelect" style="display:none">
+                                    <br /><p>@reportPara.Prompt</p>
+                                    @if (reportPara.ParameterName == "PriceGroupID")
+                                    {
+                                        <p class="paramerrormsg" style="color:red; display:none;">Please select Price Group ID</p>
+                                        <select style="color:black;" name="@reportParamSelect" id="@reportPara.ParameterName">
+                                            <option style="color:black;" value="" selected="selected">Select Price Group ID</option>
+                                            @foreach (var para in report.DataParameters)
+                                            {
+                                                reportParam = @para.Value;
+                                                <option style="color:black;" value="@reportParam">@reportParam</option>
+                                            }
+                                        </select>
+                                    }
+                                    else if (reportPara.ParameterName == "ProductID")
+                                    {
+                                        <p class="productiderrormsg" style="color:red; display:none;">Please select Prodcut ID</p>
+                                        <!--<input style="color:black;" type="text" name="@reportParamSelect" id="@reportPara.ParameterName" />-->
+                                        <select style="color:black;" name="@reportParamSelect" id="@reportPara.ParameterName">
+                                            <option style="color:black;" value="" selected="selected">Select Prodoct ID</option>
+                                            @foreach (var para in report.DataParameters)
+                                            {
+                                                 reportParam = @para.Value;
+                                                 <option style="color:black;" value="@reportParam">@reportParam</option>
+                                            }
+                                        </select>
+                                    }
+                                </div>
+
+                            }
+                        }
+                        <br /><br />
+                        <input type="submit" class="btn btn-primary btn-md active" value="Download Report" />
+  <!--</form>-->
+                    }
+                    <div class="col-lg-8 col-lg-offset-2 text-center">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+

@@ -1,4 +1,4 @@
-﻿//Handles Reports View for report download form
+﻿//Handles report form on Report View and re-writes URL for report download
 jQuery(document).ready(function () { 
     $('#report_selecter').change(function () { //depending on the value selected display or hide parameter field from form
         var report_name_selected = $('#report_selecter').val();

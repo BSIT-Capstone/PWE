@@ -1,0 +1,61 @@
+PWE reporting Install Guide
+By Greg Carlson
+
+Initial Setup: 
+
+	-Destination on Server to install PWE Reporting application.
+	-Microsoft Reporting Services is configured and installed. 
+	-Windows authentication for users accessing Microsoft Reporting Services.
+	-Reports for Microsoft Reporting Services have appropriate permissions for users to access and download.
+	-Reports are saved in a folder called PWE_Reports. *Note this is not required and can be changed through Web.config.
+
+Instructions: Two main objectives modify Web.config and Add Application to domain server.
+
+1. Copy and paste the PWE_REPORTING_APP folder on your server where you would like to install the application. 
+
+2. Modify the Web.config file located PWE_APP/Web.config
+
+	-Open the Web.config file in notepad
+
+	-Look for the appSettings tag: <appSettings><appSettings>
+	
+	-Between the appSettings tag modify the value attributes for key="ReportService" and key="ReportExecution and key="ReportFolder"
+	 *Note you do not have to change the value for ReportFolder if you keep the same naming convention for the folder.
+
+	-Follow the comments to provide urls for ReportService2005 and ReportExecution. 
+	*These urls are provided when you install and configure Microsoft Reporting Services. 
+	URL structure: "http://yourdomainname.com/ReportServer/ReportService2005.asmx" 
+		       "http://yourdomainname.com/ReportServer/ReportExecution2005.asmx"
+	
+	-You may change the value for key="ReportFolder" if you want to save reports in a different file name location for reporting services
+
+	-Save and Quit after making changes.
+
+3. Open IIS Manager on your server.
+
+4. Add the Application the your website domain: Right-click on your website and select Add Application...
+
+5. IMPORTANT! Name the Alias for the application "PWE_reporting" otherwise the url re-writes for the application will not work correclty.
+
+6. Leave application pool to default.
+
+7. Browse to PWE_REPORTING_APP/PWE_APP for the physical path.
+*This should be where you copied and pasted the PWE_REPORTING_APP folder to install application from step 1.
+
+8. Click OK and the PWE Reporting Application should be installed on your server by browsing to it on your web browser.
+
+TROUBLESHOOTING:
+
+*If you are unable to start PWE Reporting Application. 
+Make sure you browsed to the appropriate file for PWE Reporting Application: PWE_REPORTING_APP/PWE_APP.
+Make sure you followed step 5 correctly by naming the alias for PWE application to "PWE_reporting".
+If application still is not able to load delete the application and repeat steps 3 through 8.
+
+*If you are unable to access PWE Reporting Application.
+Make sure the user credentials you are providing have correct permissions for your domain server and Microsoft Reporting Services.
+Double check changes to Web.config from step 2 above.
+
+*If you are unable to download reports from PWE Reporting Application
+Be sure that Microsoft Reporting Services is setup correctly for Windows Authentication pass through to Active Directory.
+Double check changes to Web.config from step 2 above.
+
