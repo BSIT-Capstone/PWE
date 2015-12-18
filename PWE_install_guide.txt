@@ -35,7 +35,7 @@ Instructions: Two main objectives modify Web.config and Add Application to domai
 
 4. Add the Application the your website domain: Right-click on your website and select Add Application...
 
-5. IMPORTANT! Name the Alias for the application "PWE_reporting" otherwise the url re-writes for the application will not work correclty.
+5. IMPORTANT! Name the Alias for the application "PWE_reporting" otherwise the url re-writes for the application will not work correctly.
 
 6. Leave application pool to default.
 
